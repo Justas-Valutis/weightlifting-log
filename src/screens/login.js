@@ -12,7 +12,9 @@ const Login = () => {
         <TextInput style={commonStyles.textInput} placeholder="Password"></TextInput>
         <Pressable style={commonStyles.btn} onPress={null}>
           <Text style={commonStyles.btnText}>Login</Text>
-        </Pressable>    
+        </Pressable> 
+        <Text style={commonStyles.txtBelowButton}>Don't have an account?  
+          <Text style={commonStyles.link}> Sign up</Text></Text>   
     </View>
   )
 }

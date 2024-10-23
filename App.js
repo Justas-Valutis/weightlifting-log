@@ -6,8 +6,8 @@ import Register from './src/screens/register';
 export default function App() {
   return (
   <View style={styles.container}>
-    <Login></Login>
-    {/* <Register/> */}
+    {/* <Login></Login> */}
+    <Register/>
   </View>
   );
 }
