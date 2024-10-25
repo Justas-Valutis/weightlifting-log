@@ -1,11 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 const commonStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fwff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     textInput: {
         borderWidth: 1,
         bordeColor: 'black',
-        marginBottom: 20,
-        borderRadius: 5,
+        marginBottom: 5,
+        borderRadius: 10,
         width: 220,
         height: 45,
         padding: 10,
@@ -31,7 +37,15 @@ const commonStyles = StyleSheet.create({
         marginTop: 10,
     },
     txtBelowButton: {
-        marginTop: 20,
+        marginTop: 10
+    },
+    txtInputIcon: {
+        position: 'relative',
+        bottom: 35,
+        left: 90,
+    },
+    extraMarginEmail: {
+        marginBottom: 20,
     }
 })
 
