@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const commonStyles = StyleSheet.create({
+const authCommonStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fwff',
@@ -49,4 +49,4 @@ const commonStyles = StyleSheet.create({
     }
 })
 
-export default commonStyles
+export default authCommonStyles

@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 
 const Title = ({title}) => {
   return (
@@ -8,8 +7,6 @@ const Title = ({title}) => {
     </View>
   )
 }
-
-export default Title
 
 const styles = StyleSheet.create({
     title: {
@@ -20,3 +17,5 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     }
 })
+
+export default Title

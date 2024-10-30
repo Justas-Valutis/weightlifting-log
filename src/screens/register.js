@@ -1,31 +1,30 @@
 import { Text, View, TextInput, Pressable } from 'react-native'
-import React from 'react'
 import Title from '../components/title'
-import commonStyles from '../styles/commonStyles'
+import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
 
 const Register = ({ navigation }) => {
   return (
-    <View style={commonStyles.container}>
+    <View style={authCommonStyles.container}>
       <Title title="Register" />
-      <TextInput style={commonStyles.textInput} placeholder="Username"></TextInput>
-      <FontAwesome name='user' size='20' style={commonStyles.txtInputIcon} />
+      <TextInput style={authCommonStyles.textInput} placeholder="Username"></TextInput>
+      <FontAwesome name='user' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <TextInput style={[commonStyles.textInput, commonStyles.extraMarginEmail]} placeholder="Email"></TextInput>
+      <TextInput style={[authCommonStyles.textInput, authCommonStyles.extraMarginEmail]} placeholder="Email"></TextInput>
 
-      <TextInput secureTextEntry={true} style={commonStyles.textInput} placeholder="Password"></TextInput>
-      <FontAwesome name='lock' size='20' style={commonStyles.txtInputIcon} />
+      <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Password"></TextInput>
+      <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <TextInput secureTextEntry={true} style={commonStyles.textInput} placeholder="Repeat password"></TextInput>
-      <FontAwesome name='lock' size='20' style={commonStyles.txtInputIcon} />
+      <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Repeat password"></TextInput>
+      <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <Pressable style={commonStyles.btn} onPress={() => navigation.navigate('Login')}>
-        <Text style={commonStyles.btnText}>Register</Text>
+      <Pressable style={authCommonStyles.btn} onPress={() => navigation.navigate('Login')}>
+        <Text style={authCommonStyles.btnText}>Register</Text>
       </Pressable>
 
       <Pressable onPress={() => navigation.navigate('Login')}>
-        <Text style={commonStyles.txtBelowButton}>Back to Login?
-          <Text style={commonStyles.link}> Click here</Text>
+        <Text style={authCommonStyles.txtBelowButton}>Back to Login?
+          <Text style={authCommonStyles.link}> Click here</Text>
         </Text>
       </Pressable>
     </View>

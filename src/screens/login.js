@@ -1,31 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import { View, TextInput, Pressable, Text } from 'react-native'
 import Title from '../components/title'
-import commonStyles from '../styles/commonStyles'
+import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
+import { AuthContext } from '../context/AuthContext';
 
 
 const Login = ({ navigation }) => {
+
+  const { login } = useContext(AuthContext); // Access the login function from context
+
+
   return (
-    <View style={commonStyles.container}>
+    <View style={authCommonStyles.container}>
       <Title title="Login" />
-      <TextInput style={commonStyles.textInput} placeholder="Username"></TextInput>
-      <FontAwesome name='user' size='20' style={commonStyles.txtInputIcon} />
+      <TextInput style={authCommonStyles.textInput} placeholder="Username"></TextInput>
+      <FontAwesome name='user' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <TextInput style={commonStyles.textInput} placeholder="Password"></TextInput>
-      <FontAwesome name='lock' size='20' style={commonStyles.txtInputIcon} />
+      <TextInput style={authCommonStyles.textInput} placeholder="Password"></TextInput>
+      <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <Pressable style={commonStyles.btn} onPress={() => navigation.navigate(null)}>
-        <Text style={commonStyles.btnText}>Login</Text>
+      <Pressable style={authCommonStyles.btn} onPress={login}>
+        <Text style={authCommonStyles.btnText}>Login</Text>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('Register')}>
-        <Text style={commonStyles.txtBelowButton}>Don't have an account?
-          <Text style={commonStyles.link}> Sign up</Text></Text>
+        <Text style={authCommonStyles.txtBelowButton}>Don't have an account?
+          <Text style={authCommonStyles.link}> Sign up</Text></Text>
       </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={commonStyles.txtBelowButton}>Forgot password?
-          <Text style={commonStyles.link}> Recover here</Text></Text>
+      <Pressable onPress={() => navigation.navigate('RecoverPassword')}>
+        <Text style={authCommonStyles.txtBelowButton}>Forgot password?
+          <Text style={authCommonStyles.link}> Recover here</Text></Text>
       </Pressable>
     </View>
   )
