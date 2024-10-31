@@ -1,26 +1,31 @@
 import { View, StyleSheet, Text, Pressable, SafeAreaView } from 'react-native'
 import React from 'react'
-import { useState } from 'react';
-import SearchField from './searchField';
+import { useState, useContext } from 'react';
+import SearchField from './shared/searchField';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ThemeContext } from '../context/ThemeContext';
+import ThemeView from './shared/themeView';
 
 const Home = () => {
     const [query, setQuery] = useState('');
     const Tab = createBottomTabNavigator();
-
+    const { theme } = useContext(ThemeContext);
     return (
-        <SafeAreaView>
-            <View style={styles.btnContainer}>
-                <Pressable style={styles.btn}>
-                    <Text style={styles.btnText}>Exercise Category</Text>
-                </Pressable>
+        <ThemeView>
+            <View style={[styles.container, { backgroundColor: theme }]}>
+                <View style={styles.btnContainer}>
+                    <Pressable style={styles.btn}>
+                        <Text style={styles.btnText}>Exercise Category</Text>
+                    </Pressable>
+                </View>
+                <SearchField query={query} setQuery={setQuery} />
             </View>
-            <SearchField query={query} setQuery={setQuery} />
-        </SafeAreaView>
+        </ThemeView>
     )
 }
 
 export default Home
+
 
 const styles = StyleSheet.create({
     container: {

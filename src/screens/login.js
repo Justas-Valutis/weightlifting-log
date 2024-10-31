@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, TextInput, Pressable, Text } from 'react-native'
-import Title from '../components/title'
+import Title from '../components/shared/title'
 import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
@@ -23,6 +23,7 @@ const Login = ({ navigation }) => {
       <Pressable style={authCommonStyles.btn} onPress={login}>
         <Text style={authCommonStyles.btnText}>Login</Text>
       </Pressable>
+      
       <Pressable onPress={() => navigation.navigate('Register')}>
         <Text style={authCommonStyles.txtBelowButton}>Don't have an account?
           <Text style={authCommonStyles.link}> Sign up</Text></Text>

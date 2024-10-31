@@ -1,5 +1,5 @@
 import { Text, View, TextInput, Pressable } from 'react-native'
-import Title from '../components/title'
+import Title from '../components/shared/title'
 import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
 
