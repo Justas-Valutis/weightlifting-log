@@ -9,7 +9,7 @@ export default function ThemeView({ children }) {
     return (
         <View style={{ backgroundColor: theme, flex: 1 }}>
             <SafeAreaView style={styles.container}>
-                <StatusBar barStyle={theme === isDark ? 'light-content' : 'dark-content'} />
+                <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
                 {children}
             </SafeAreaView>
         </View>

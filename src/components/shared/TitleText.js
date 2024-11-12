@@ -7,6 +7,6 @@ export default function TitleText({ children, style }) {
     const { isDark } = useContext(ThemeContext);
 
     return (
-        <Text style={[style, { color: isDark ? 'gray' : 'black', fontSize: 19, fontWeight: '500', textAlign: 'center' }]}>{children}</Text>
+        <Text style={[{ color: isDark ? 'gray' : 'black', fontSize: 19, fontWeight: '500', textAlign: 'center' }, style]}>{children}</Text>
     )
 }
