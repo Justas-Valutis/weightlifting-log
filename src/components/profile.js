@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Button, Alert, Platform, View, Pressable, TextInput } from 'react-native'
+import { StyleSheet, Text, Alert, Platform, View, Pressable, TextInput } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
@@ -24,8 +24,7 @@ const Profile = () => {
     const updateUsername = (username) => () => {
         if (username.trim().length > 3) {
             setValidUsername(true);
-            //is username unique?
-            //update username
+
         } else {
             setValidUsername(false);
         }
