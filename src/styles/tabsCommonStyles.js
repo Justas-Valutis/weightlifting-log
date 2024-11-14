@@ -1,6 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 const tabsCommonstyles = StyleSheet.create({
+    heading: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 15,
+        textAlign: 'center',
+    },
+    subHeading: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginBottom: 5,
+        textAlign: 'center',
+    },
     title: {
         marginBottom: 20,
     },
@@ -22,7 +35,6 @@ const tabsCommonstyles = StyleSheet.create({
         color: 'black',
         fontSize: 14,
         fontWeight: '300',
-
     },
 })
 

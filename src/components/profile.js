@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     themeContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: Platform.OS === 'ios' ? 'space-between' : 'space-evenly',
         marginBottom: 20,
         borderBottomColor: 'gray',
         borderBottomWidth: 2,
@@ -221,9 +221,11 @@ const styles = StyleSheet.create({
     profileRow: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: Platform.OS === 'ios' ? 'space-between' : 'center',
+        // justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 10,
+        gap: Platform.OS === 'web' ? 30 : 0,
     },
     btnChangePsw: {
         width: 250,

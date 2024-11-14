@@ -6,6 +6,7 @@ import { ThemeContext } from '../context/ThemeContext';
 import ThemeView from './shared/themeView';
 import LineText from './shared/LineText';
 import TitleText from './shared/LineText';
+import tabsCommonstyles from '../styles/tabsCommonStyles';
 
 const Home = () => {
     const [query, setQuery] = useState('');
@@ -16,14 +17,14 @@ const Home = () => {
     return (
         <ThemeView>
             <ScrollView>
-                <LineText style={styles.heading}>Welcome to BJJ Belgium</LineText>
+                <LineText style={tabsCommonstyles.heading}>Welcome to BJJ Belgium</LineText>
                 <Image
                     style={[styles.logo, { height: Platform.OS === 'web' ? width * 0.25 : height * 0.3 }]}
                     source={require('../../src/assets/bjj-cover.webp')}
                     resizeMode={Platform.OS === 'web' ? "cover" : "contain"}
                 />
 
-                <TitleText style={styles.subHeading}>Fighting Times</TitleText>
+                <TitleText style={tabsCommonstyles.subHeading}>Fighting Times</TitleText>
 
                 <View style={Platform.OS === 'web' ? styles.fTimesContainerWeb : styles.fTimesContainerWebGSM}>
                     <View style={styles.fightTimeContainer}>
@@ -55,17 +56,17 @@ const Home = () => {
 
                 <View style={styles.adressContact}>
                     <View>
-                        <TitleText style={styles.subHeading}>Coaches</TitleText>
+                        <TitleText style={tabsCommonstyles.subHeading}>Coaches</TitleText>
                         <LineText>- Kenzo Mongo</LineText>
                         <LineText>- Pipo Weirdo</LineText>
                     </View>
 
                     <View>
-                        <TitleText style={styles.subHeading}>Address</TitleText>
+                        <TitleText style={tabsCommonstyles.subHeading}>Address</TitleText>
                         <LineText >UFC 309, Octagon, Belgium</LineText>
                     </View>
                     <View>
-                        <TitleText style={styles.subHeading}>Contact</TitleText>
+                        <TitleText style={tabsCommonstyles.subHeading}>Contact</TitleText>
                         <LineText>Email: TextMePlease@SubscribePlease.com</LineText>
                         <LineText>GSM: 112</LineText>
                     </View>
@@ -82,19 +83,6 @@ export default Home
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-    },
-    heading: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 15,
-        textAlign: 'center',
-    },
-    subHeading: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 20,
-        marginBottom: 5,
-        textAlign: 'center',
     },
     section: {
         fontSize: 18,
