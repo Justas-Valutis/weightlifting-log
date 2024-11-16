@@ -8,6 +8,9 @@ import LineText from './shared/LineText';
 import TitleText from './shared/LineText';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
 
+const { width } = Dimensions.get('window');
+
+
 const Home = () => {
     const [query, setQuery] = useState('');
     const Tab = createBottomTabNavigator();
@@ -26,7 +29,7 @@ const Home = () => {
 
                 <TitleText style={tabsCommonstyles.subHeading}>Fighting Times</TitleText>
 
-                <View style={Platform.OS === 'web' ? styles.fTimesContainerWeb : styles.fTimesContainerWebGSM}>
+                <View style={width > 700 ? styles.fTimesContainerWeb : styles.fTimesContainerWebGSM}>
                     <View style={styles.fightTimeContainer}>
                         <TitleText style={styles.section}>Brazilian Jiu-Jitsu</TitleText>
                         <LineText>Tuesday: 19h00-20h30</LineText>
@@ -79,7 +82,6 @@ const Home = () => {
 
 export default Home
 
-
 const styles = StyleSheet.create({
     container: {
         padding: 20,
@@ -113,11 +115,11 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         display: 'flex',
         marginTop: 15,
-        flexDirection: Platform.OS === 'web' ? 'row' : 'column',
-        justifyContent: Platform.OS === 'web' ? 'space-around' : 'flex-start'
+        flexDirection: width > 700 ? 'row' : 'column',
+        justifyContent: width > 700 ? 'space-around' : 'flex-start',
     },
     fightTimeContainer: {
-        width: Platform.OS === 'web' ? '30%' : '100%',
+        width: width > 700 ? '30%' : '100%',
         marginBottom: 20,
     }
 });

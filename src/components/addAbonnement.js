@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Platform, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, Alert } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import LineText from './shared/LineText';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
 import ThemeView from './shared/themeView';
 
-const AddAbonnement = () => {
+const AddAbonnement = ({ navigation }) => {
     //       Abonnement type selection
     const [showAList, setShowAList] = useState(false);
     const [selectedAbonnement, setSelectedAbonnement] = useState('');
@@ -41,7 +41,10 @@ const AddAbonnement = () => {
     const handleBuyBtn = () => {
         if (Platform.OS === 'web') {
             const confirmed = window.confirm('Are you sure you want to buy?');
-            if (confirmed) bought();
+            if (confirmed) {
+                resetValues();
+                navigation.navigate('abonnementHistory');
+            }
         } else {
             Alert.alert(
                 'Are you sure you want to Buy?', '',
@@ -52,7 +55,9 @@ const AddAbonnement = () => {
                     {
                         text: 'OK',
                         onPress: () => {
-                            bought();
+                            resetValues();
+                            navigation.navigate('abonnementHistory');
+
                         },
                     },
                 ]
@@ -60,11 +65,11 @@ const AddAbonnement = () => {
         }
     }
 
-    const bought = () => {
+    const resetValues = () => {
         setPrice(0);
         setSelectedAbonnement('');
         setSelectedDuration('');
-        console.log('Buy Abonnement');
+
     }
 
     return (
@@ -124,6 +129,8 @@ const AddAbonnement = () => {
 
 export default AddAbonnement;
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -131,12 +138,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     list: {
-        width: Platform.OS === 'web' ? '50%' : '100%',
+        width: width > 700 ? '50%' : '100%',
     },
     dropdown: {
         position: 'absolute',
         zIndex: 1,
-        width: Platform.OS === 'web' ? '50%' : '100%',
+        width: width > 700 ? '50%' : '100%',
         backgroundColor: '#f0f0f0',
         borderRadius: 5,
     },

@@ -3,9 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../components/home';
-import SearchField from '../components/shared/searchField';
 import Profile from '../components/profile';
-import UnderConstrcution from '../components/shared/underConstrcution';
 import { AuthContext } from '../context/AuthContext';
 import Login from '../screens/login';
 import RecoverPassword from '../screens/recoverPassword';
@@ -13,6 +11,8 @@ import Register from '../screens/register';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemeProvider } from '../context/ThemeContext';
 import AddAbonnement from '../components/addAbonnement';
+import AbonnementHistory from '../components/abonnementHistory';
+
 export default function AppNavigator() {
     const Tab = createBottomTabNavigator();
     const Stack = createNativeStackNavigator();
@@ -34,14 +34,14 @@ export default function AppNavigator() {
                             backgroundColor: 'black', // This will set the background color for all screens
                         },
                     }}>
-                        <Tab.Screen name="AddAbonnement" component={AddAbonnement}
+                        <Tab.Screen name="abonnementHistory" component={AbonnementHistory}
                             options={{
                                 tabBarIcon: ({ focused }) => (
-                                    <Ionicons name="add-circle-sharp" color={focused ? '#B0B0B0' : 'gray'}
-                                        size={24} />
+                                    <Ionicons name="cart" color={focused ? '#B0B0B0' : 'gray'} size={24} />
                                 ),
                             }}
                         />
+                        
                         <Tab.Screen name="Home" component={Home}
                             options={{
                                 tabBarIcon: ({ focused }) => (
@@ -49,10 +49,12 @@ export default function AppNavigator() {
                                 ),
                             }}
                         />
-                        <Tab.Screen name="Search" component={SearchField}
+
+                        <Tab.Screen name="AddAbonnement" component={AddAbonnement}
                             options={{
                                 tabBarIcon: ({ focused }) => (
-                                    <Ionicons name="search" color={focused ? '#B0B0B0' : 'gray'} size={24} />
+                                    <Ionicons name="add-circle-sharp" color={focused ? '#B0B0B0' : 'gray'}
+                                        size={24} />
                                 ),
                             }}
                         />

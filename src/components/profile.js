@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Alert, Platform, View, Pressable, TextInput } from 'react-native'
+import { StyleSheet, Text, Alert, View, Pressable, TextInput, Dimensions } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
@@ -167,6 +167,8 @@ const Profile = () => {
 
 export default Profile
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     title: {
         marginBottom: 15,
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
     themeContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: Platform.OS === 'ios' ? 'space-between' : 'space-evenly',
+        justifyContent: width < 700 ? 'space-between' : 'space-evenly',
         marginBottom: 20,
         borderBottomColor: 'gray',
         borderBottomWidth: 2,
@@ -220,11 +222,10 @@ const styles = StyleSheet.create({
     profileRow: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: Platform.OS === 'ios' ? 'space-between' : 'center',
-        // justifyContent: 'space-between',
+        justifyContent: width < 700 ? 'space-between' : 'center',
         alignItems: 'center',
         marginBottom: 10,
-        gap: Platform.OS === 'web' ? 30 : 0,
+        gap: width > 700 ? 30 : 0,
     },
     btnChangePsw: {
         width: 250,
