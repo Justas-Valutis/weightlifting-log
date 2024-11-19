@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Alert, View, Pressable, TextInput, Dimensions } from 'react-native'
+import { StyleSheet, Text, Alert, View, Pressable, TextInput, Dimensions, Platform} from 'react-native'
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
