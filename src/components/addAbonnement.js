@@ -29,7 +29,7 @@ const AddAbonnement = ({ navigation }) => {
 
     const sendSubscriptionRequest = async () => {
         try {
-            const response = await fetch(`http://localhost:8090/api/subscriptiontype/type${selectedSubscription}/duration${selectedDuration}`);
+            const response = await fetch(`${BASE_URL}subscriptiontype/type${selectedSubscription}/duration${selectedDuration}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
