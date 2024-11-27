@@ -1,42 +1,53 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, Alert, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import LineText from './shared/LineText';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
 import ThemeView from './shared/themeView';
+import { useFetch } from './shared/useFetch';
+import { BASE_URL } from '../config/apiConfig';
+import { send } from 'process';
 
 const AddAbonnement = ({ navigation }) => {
-    //       Abonnement type selection
-    const [showAList, setShowAList] = useState(false);
-    const [selectedAbonnement, setSelectedAbonnement] = useState('');
 
-    const abonnementTypes = ['BJJ', 'Grappling', 'MMA', 'Kids BJJ', 'All-in'];
+    const [showSubscriptionList, setShowSubscriptionList] = useState(false);
+    const [selectedSubscription, setSelectedSubscription] = useState('');
+    const [price, setPrice] = useState(0);
+    const [showDurationList, setShowDurationList] = useState(false);
+    const [selectedDuration, setSelectedDuration] = useState('');
+    const subscriptionTypes = useFetch('subscriptiontype/types');
+    const durations = useFetch('subscriptiontype/durations');
 
     const handleAPress = (item) => {
-        setSelectedAbonnement(item);
-        setShowAList(false);
+        setSelectedSubscription(item);
+        setShowSubscriptionList(false);
     };
-
-    const [showDList, setShowDList] = useState(false);
-    const [selectedDuration, setSelectedDuration] = useState('');
-
-    //       Abonnement duration selection
-    const durations = ['1 month', '3 months', '6 months', '12 months'];
 
     const handleDPress = (item) => {
         setSelectedDuration(item);
-        setShowDList(false);
+        setShowDurationList(false);
     }
 
-    //     Price calculation
-    const [price, setPrice] = useState(0);
+    const sendSubscriptionRequest = async () => {
+        try {
+            const response = await fetch(`http://localhost:8090/api/subscriptiontype/type${selectedSubscription}/duration${selectedDuration}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const data = await response.json();
+            setPrice(data);
+        } catch (error) {
+            console.error('Error fetching data:', error.message);
+        }
+    };
 
+    //     Price calculation
     useEffect(() => {
-        if (selectedAbonnement && selectedDuration) {
-            setPrice(100);
+        if (selectedSubscription && selectedDuration) {
+            sendSubscriptionRequest();
         } else {
             setPrice(0);
         }
-    }, [selectedAbonnement, selectedDuration]);
+    }, [selectedSubscription, selectedDuration]);
 
     const handleBuyBtn = () => {
         if (Platform.OS === 'web') {
@@ -67,7 +78,7 @@ const AddAbonnement = ({ navigation }) => {
 
     const resetValues = () => {
         setPrice(0);
-        setSelectedAbonnement('');
+        setSelectedSubscription('');
         setSelectedDuration('');
 
     }
@@ -79,13 +90,13 @@ const AddAbonnement = ({ navigation }) => {
             <View style={styles.container}>
                 <LineText style={tabsCommonstyles.subHeading}>Select Abonnement type</LineText>
 
-                <TouchableOpacity onPress={() => setShowAList(!showAList)} style={[styles.list, styles.button, selectedAbonnement ? styles.selectedAbonnement : null]}>
-                    <Text style={styles.buttonText}>{selectedAbonnement ? selectedAbonnement : 'Select Abonnement'}</Text>
+                <TouchableOpacity onPress={() => setShowSubscriptionList(!showSubscriptionList)} style={[styles.list, styles.button, selectedSubscription ? styles.selectedSubscription : null]}>
+                    <Text style={styles.buttonText}>{selectedSubscription ? selectedSubscription : 'Select Abonnement'}</Text>
                 </TouchableOpacity>
-                {showAList && (
+                {showSubscriptionList && (
                     <FlatList
                         style={[styles.list, styles.dropdown]}
-                        data={abonnementTypes}
+                        data={subscriptionTypes}
                         keyExtractor={(item) => item}
                         renderItem={({ item }) => (
                             <TouchableOpacity onPress={() => handleAPress(item)} style={styles.item}>
@@ -97,10 +108,10 @@ const AddAbonnement = ({ navigation }) => {
 
                 <LineText style={tabsCommonstyles.subHeading}>Select Abonnement duration</LineText>
 
-                <TouchableOpacity onPress={() => setShowDList(!showDList)} style={[styles.list, styles.button]}>
+                <TouchableOpacity onPress={() => setShowDurationList(!showDurationList)} style={[styles.list, styles.button]}>
                     <Text style={styles.buttonText}>{selectedDuration ? selectedDuration : 'Select Duration'}</Text>
                 </TouchableOpacity>
-                {showDList && (
+                {showDurationList && (
                     <FlatList
                         style={[styles.list, styles.dropdown]}
                         data={durations}
@@ -167,7 +178,7 @@ const styles = StyleSheet.create({
     itemText: {
         color: '#000',
     },
-    selectedAbonnement: {
+    selectedSubscription: {
         backgroundColor: '#28a745',
     },
     buyBTN: {
