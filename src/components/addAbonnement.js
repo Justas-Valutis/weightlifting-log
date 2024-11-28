@@ -5,7 +5,6 @@ import tabsCommonstyles from '../styles/tabsCommonStyles';
 import ThemeView from './shared/themeView';
 import { useFetch } from './shared/useFetch';
 import { BASE_URL } from '../config/apiConfig';
-import { send } from 'process';
 
 const AddAbonnement = ({ navigation }) => {
 

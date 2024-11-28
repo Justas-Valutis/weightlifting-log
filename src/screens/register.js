@@ -4,6 +4,8 @@ import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { BASE_URL } from '../config/apiConfig';
+import { validateUser } from '../components/shared/validateUser';
+import ErrorText from '../components/shared/errorText';
 
 const Register = ({ navigation }) => {
   const [userName, setUsername] = useState('');
@@ -12,43 +14,13 @@ const Register = ({ navigation }) => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [error, setError] = useState('');
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  const validateRegistrattion = () => {
-    if (!userName || userName.length < 3) {
-      setError('Username is required and minimum 3 characters');
-      return false;
-    }
-
-    if (!email || !validateEmail(email)) {
-      setError('Email is required. Please enter a valid email');
-      return false;
-    }
-
-    if (!password && password.length < 5) {
-      setError('Password is required');
-      return false;
-    }
-
-    if (password.length < 5 ||password !== repeatPassword ) {
-      setError('Passwords do not match or is less than 5 characters');
-      return false;
-    }
-    setError('');
-    return true;
-
-  }
-
   const handleRegister = async () => {
-    const user = { userName, email, password, repeatPassword };
-    console.log(user);
-
-    if (!validateRegistrattion()) {
+    if (!validateUser(userName, email, password, repeatPassword, setError)) {
       return;
     }
+
+    const user = { userName, email, password, repeatPassword };
+
     try {
       const response = await fetch(`${BASE_URL}user/register`, {
         method: 'POST',
@@ -64,7 +36,7 @@ const Register = ({ navigation }) => {
         alert('Registration successful!');
         navigation.navigate('Login');
       } else {
-        const errorText = await response.text(); // You can also attempt to parse JSON here if you return JSON in errors
+        const errorText = await response.text();
         alert(`Registration failed. Status: ${response.status} \nDetails: ${errorText}`);
       }
     } catch (error) {
@@ -90,7 +62,7 @@ const Register = ({ navigation }) => {
         onChangeText={text => setRepeatPassword(text)}></TextInput>
       <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
-      {error ? <Text style={authCommonStyles.error}>{error}</Text> : null}
+      <ErrorText error={error} />
 
       <Pressable style={authCommonStyles.btn} onPress={handleRegister}>
         <Text style={authCommonStyles.btnText}>Register</Text>

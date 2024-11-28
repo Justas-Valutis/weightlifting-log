@@ -5,16 +5,23 @@ import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
 import { BASE_URL } from '../config/apiConfig';
+import { validateLogin } from '../components/shared/validateUser';
+import ErrorText from '../components/shared/errorText';
 
 
 const Login = ({ navigation }) => {
-  const { login } = useContext(AuthContext); // Access the login function from context
+  const { login } = useContext(AuthContext);
 
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = async () => {
-    // Login logic
+
+    if (!validateLogin(userName, password, setError)) {
+      return;
+    };
+
     const user = { userName, password };
 
     try {
@@ -50,8 +57,10 @@ const Login = ({ navigation }) => {
       <TextInput style={authCommonStyles.textInput} placeholder="Username" onChangeText={text => setUsername(text)}></TextInput>
       <FontAwesome name='user' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <TextInput style={authCommonStyles.textInput} placeholder="Password" onChangeText={text => setPassword(text)}></TextInput>
+      <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Password" onChangeText={text => setPassword(text)}></TextInput>
       <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
+
+      <ErrorText error={error} />
 
       <Pressable style={authCommonStyles.btn} onPress={handleLogin}>
         <Text style={authCommonStyles.btnText}>Login</Text>
