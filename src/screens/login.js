@@ -4,6 +4,7 @@ import Title from '../components/shared/title'
 import authCommonStyles from '../styles/authCommonStyles'
 import { FontAwesome } from '@expo/vector-icons';
 import { AuthContext } from '../context/AuthContext';
+import { BASE_URL } from '../config/apiConfig';
 
 
 const Login = ({ navigation }) => {
@@ -17,7 +18,7 @@ const Login = ({ navigation }) => {
     const user = { userName, password };
 
     try {
-      const response = await fetch('http://localhost:8090/api/user/identify', {
+      const response = await fetch(`${BASE_URL}auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

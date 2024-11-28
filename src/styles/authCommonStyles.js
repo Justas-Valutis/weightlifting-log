@@ -46,7 +46,11 @@ const authCommonStyles = StyleSheet.create({
     },
     extraMarginEmail: {
         marginBottom: 20,
-    }
+    },
+    error: {
+        color: 'red',
+        marginBottom: 10,
+    },
 })
 
 export default authCommonStyles
