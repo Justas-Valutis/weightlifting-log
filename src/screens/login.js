@@ -42,7 +42,7 @@ const Login = ({ navigation }) => {
 
       const data = await response.text();
       console.log('Success:', data);
-      login();
+      login(data);
 
     } catch (error) {
       console.error('Error:', error);

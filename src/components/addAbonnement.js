@@ -1,27 +1,31 @@
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, Alert, Platform } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import LineText from './shared/LineText';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
 import ThemeView from './shared/themeView';
 import { useFetch } from './shared/useFetch';
 import { BASE_URL } from '../config/apiConfig';
+import { AuthContext } from '../context/AuthContext';
 
 const AddAbonnement = ({ navigation }) => {
+
+    const { userId } = useContext(AuthContext);
 
     const [showSubscriptionList, setShowSubscriptionList] = useState(false);
     const [selectedSubscription, setSelectedSubscription] = useState('');
     const [price, setPrice] = useState(0);
+    const [id, setSubscriptionId] = useState(0);
     const [showDurationList, setShowDurationList] = useState(false);
     const [selectedDuration, setSelectedDuration] = useState('');
     const subscriptionTypes = useFetch('subscriptiontype/types');
     const durations = useFetch('subscriptiontype/durations');
 
-    const handleAPress = (item) => {
+    const handleSubscriptionPress = (item) => {
         setSelectedSubscription(item);
         setShowSubscriptionList(false);
     };
 
-    const handleDPress = (item) => {
+    const handleDurationPress = (item) => {
         setSelectedDuration(item);
         setShowDurationList(false);
     }
@@ -33,7 +37,8 @@ const AddAbonnement = ({ navigation }) => {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             const data = await response.json();
-            setPrice(data);
+            setPrice(data.pricePerMonth);
+            setSubscriptionId(data.id);
         } catch (error) {
             console.error('Error fetching data:', error.message);
         }
@@ -98,7 +103,7 @@ const AddAbonnement = ({ navigation }) => {
                         data={subscriptionTypes}
                         keyExtractor={(item) => item}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleAPress(item)} style={styles.item}>
+                            <TouchableOpacity onPress={() => handleSubscriptionPress(item)} style={styles.item}>
                                 <Text style={styles.itemText}>{item}</Text>
                             </TouchableOpacity>
                         )}
@@ -116,7 +121,7 @@ const AddAbonnement = ({ navigation }) => {
                         data={durations}
                         keyExtractor={(item) => item}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleDPress(item)} style={styles.item}>
+                            <TouchableOpacity onPress={() => handleDurationPress(item)} style={styles.item}>
                                 <Text style={styles.itemText}>{item}</Text>
                             </TouchableOpacity>
                         )}
