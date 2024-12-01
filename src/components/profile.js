@@ -41,7 +41,7 @@ const Profile = () => {
 
     const { setThemeLight, setThemeDark } = useContext(ThemeContext);
 
-    const [username, setUsername] = useState('username');
+    const [userName, setUsername] = useState('userName');
     const [email, setEmail] = useState('email');
     const [validUsername, setValidUsername] = useState(true);
     const [validEmail, setValidEmail] = useState(true);
@@ -51,12 +51,39 @@ const Profile = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [validPassword, setValidPassword] = useState(true);
 
-    const updateUsername = (username) => () => {
-        if (username.trim().length > 3) {
+    const updateUsername = (userName) => () => {
+        if (userName.trim().length > 3) {
             setValidUsername(true);
-
+            patchUserName();
         } else {
             setValidUsername(false);
+        }
+    }
+
+    const patchUserName = async () => {
+        try {
+            const response = await fetch(BASE_URL + `user/patch-username/id=${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userName }),
+            });
+
+            if (response.status === 200) {
+                console.log('Username updated');
+                setValidUsername(true);
+            }
+
+            if (response.status === 400) {
+                setValidUsername(false);
+            }
+
+            if (response.status === 404) {
+                throw new Error('User not found');
+            }
+        } catch (err) {
+            console.error('Error updating username:', err.message);
         }
     }
 
@@ -64,9 +91,36 @@ const Profile = () => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (emailRegex.test(email)) {
             setValidEmail(true);
-            //update email
+            patchEmail();
         } else {
             setValidEmail(false);
+        }
+    }
+
+    const patchEmail = async () => {
+        try {
+            const response = await fetch(BASE_URL + `user/patch-email/id=${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            if (response.status === 200) {
+                console.log('Username updated');
+                setValidEmail(true);
+            }
+
+            if (response.status === 400) {
+                setValidEmail(false);
+            }
+
+            if (response.status === 404) {
+                throw new Error('User not found');
+            }
+        } catch (err) {
+            console.error('Error updating username:', err.message);
         }
     }
 
@@ -129,21 +183,21 @@ const Profile = () => {
 
                 <View style={styles.profileRow}>
                     <LineText>Username</LineText>
-                    <TextInput placeholder={username} style={tabsCommonstyles.textInput} onChangeText={text => setUsername(text)} />
-                    <Pressable style={[styles.darkThemeBTN, styles.backgroundGray]} onPress={updateUsername(username)}>
+                    <TextInput placeholder={userName} style={tabsCommonstyles.textInput} onChangeText={text => setUsername(text)} autoCapitalize="none" />
+                    <Pressable style={[styles.darkThemeBTN, styles.backgroundGray]} onPress={updateUsername(userName)}>
                         <Text style={[tabsCommonstyles.text, tabsCommonstyles.textCenter, styles.whiteText]}>Change</Text>
                     </Pressable>
                 </View>
                 {!validUsername && (
                     <Text style={styles.error}>
-                        Username must be at least 4 characters long
+                        Username must be at least 4 characters long. Or username alredy exists.
                     </Text>
                 )}
 
 
                 <View style={styles.profileRow}>
                     <LineText>Email        </LineText>
-                    <TextInput placeholder={email} style={tabsCommonstyles.textInput} onChangeText={text => setEmail(text)} />
+                    <TextInput placeholder={email} style={tabsCommonstyles.textInput} onChangeText={text => setEmail(text)} autoCapitalize="none" />
                     <Pressable style={[styles.darkThemeBTN, styles.backgroundGray]} onPress={updateEmail(email)}>
                         <Text style={[tabsCommonstyles.text, tabsCommonstyles.textCenter, styles.whiteText]}>Change</Text>
                     </Pressable>
@@ -151,7 +205,7 @@ const Profile = () => {
 
                 {!validEmail && (
                     <Text style={styles.error}>
-                        Please enter a valid email address
+                        Please enter a valid email address or this email address already exists.
                     </Text>
                 )}
             </View>
@@ -161,17 +215,17 @@ const Profile = () => {
 
                 <View style={styles.profileRow}>
                     <LineText>Old Password</LineText>
-                    <TextInput placeholder='old password' style={tabsCommonstyles.textInput} onChangeText={text => setOldPassword(text)} />
+                    <TextInput placeholder='old password' style={tabsCommonstyles.textInput} onChangeText={text => setOldPassword(text)} autoCapitalize="none" />
                 </View>
 
                 <View style={styles.profileRow}>
                     <LineText>New Password</LineText>
-                    <TextInput placeholder='new password' style={tabsCommonstyles.textInput} onChangeText={text => setNewPassword(text)} />
+                    <TextInput placeholder='new password' style={tabsCommonstyles.textInput} onChangeText={text => setNewPassword(text)} autoCapitalize="none" />
                 </View>
 
                 <View style={styles.profileRow}>
                     <LineText>New Password</LineText>
-                    <TextInput placeholder='repeat password' style={tabsCommonstyles.textInput} onChangeText={text => setConfirmNewPassword(text)} />
+                    <TextInput placeholder='repeat password' style={tabsCommonstyles.textInput} onChangeText={text => setConfirmNewPassword(text)} autoCapitalize="none" />
                 </View>
 
                 <Pressable style={[styles.darkThemeBTN, styles.backgroundGray, styles.btnChangePsw]} onPress={updatePassword}>

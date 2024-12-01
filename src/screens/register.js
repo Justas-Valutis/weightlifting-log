@@ -48,18 +48,18 @@ const Register = ({ navigation }) => {
     <View style={authCommonStyles.container}>
       <Title title="Register" />
       <TextInput style={authCommonStyles.textInput} placeholder="Username"
-        onChangeText={text => setUsername(text)}></TextInput>
+        onChangeText={text => setUsername(text)} autoCapitalize="none"></TextInput>
       <FontAwesome name='user' size='20' style={authCommonStyles.txtInputIcon} />
 
       <TextInput style={[authCommonStyles.textInput, authCommonStyles.extraMarginEmail]} placeholder="Email"
-        onChangeText={text => setEmail(text)}></TextInput>
+        onChangeText={text => setEmail(text)} autoCapitalize="none"></TextInput>
 
       <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Password"
-        onChangeText={text => setPassword(text)}></TextInput>
+        onChangeText={text => setPassword(text)} autoCapitalize="none"></TextInput>
       <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
       <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Repeat password"
-        onChangeText={text => setRepeatPassword(text)}></TextInput>
+        onChangeText={text => setRepeatPassword(text)} autoCapitalize="none"></TextInput>
       <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
       <ErrorText error={error} />

@@ -72,7 +72,7 @@ export default function AppNavigator() {
                 <Stack.Navigator initialRouteName="Login">
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                     <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-                    <Stack.Screen name="RecoverPassword" component={RecoverPassword} options={{ headerShown: false }} />
+                    {/* <Stack.Screen name="RecoverPassword" component={RecoverPassword} options={{ headerShown: false }} /> */}
                 </Stack.Navigator>
             )}
         </NavigationContainer>

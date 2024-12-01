@@ -54,10 +54,10 @@ const Login = ({ navigation }) => {
   return (
     <View style={authCommonStyles.container}>
       <Title title="Login" />
-      <TextInput style={authCommonStyles.textInput} placeholder="Username" onChangeText={text => setUsername(text)}></TextInput>
+      <TextInput style={authCommonStyles.textInput} placeholder="Username" onChangeText={text => setUsername(text)} autoCapitalize="none"></TextInput>
       <FontAwesome name='user' size='20' style={authCommonStyles.txtInputIcon} />
 
-      <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Password" onChangeText={text => setPassword(text)}></TextInput>
+      <TextInput secureTextEntry={true} style={authCommonStyles.textInput} placeholder="Password" onChangeText={text => setPassword(text)} autoCapitalize="none"></TextInput>
       <FontAwesome name='lock' size='20' style={authCommonStyles.txtInputIcon} />
 
       <ErrorText error={error} />
@@ -71,10 +71,10 @@ const Login = ({ navigation }) => {
           <Text style={authCommonStyles.link}> Sign up</Text></Text>
       </Pressable>
 
-      <Pressable onPress={() => navigation.navigate('RecoverPassword')}>
+      {/* <Pressable onPress={() => navigation.navigate('RecoverPassword')}>
         <Text style={authCommonStyles.txtBelowButton}>Forgot password?
           <Text style={authCommonStyles.link}> Recover here</Text></Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   )
 }
