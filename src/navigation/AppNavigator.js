@@ -34,18 +34,19 @@ export default function AppNavigator() {
                             backgroundColor: 'black', // This will set the background color for all screens
                         },
                     }}>
-                        <Tab.Screen name="abonnementHistory" component={AbonnementHistory}
-                            options={{
-                                tabBarIcon: ({ focused }) => (
-                                    <Ionicons name="cart" color={focused ? '#B0B0B0' : 'gray'} size={24} />
-                                ),
-                            }}
-                        />
-                        
+
                         <Tab.Screen name="Home" component={Home}
                             options={{
                                 tabBarIcon: ({ focused }) => (
                                     <Ionicons name="home" color={focused ? '#B0B0B0' : 'gray'} size={24} />
+                                ),
+                            }}
+                        />
+
+                        <Tab.Screen name="abonnementHistory" component={AbonnementHistory}
+                            options={{
+                                tabBarIcon: ({ focused }) => (
+                                    <Ionicons name="cart" color={focused ? '#B0B0B0' : 'gray'} size={24} />
                                 ),
                             }}
                         />

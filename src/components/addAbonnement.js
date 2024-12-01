@@ -7,14 +7,14 @@ import { useFetch } from './shared/useFetch';
 import { BASE_URL } from '../config/apiConfig';
 import { AuthContext } from '../context/AuthContext';
 
-const AddAbonnement = ({ navigation }) => {
+const AddAbonnement = () => {
 
     const { userId } = useContext(AuthContext);
 
     const [showSubscriptionList, setShowSubscriptionList] = useState(false);
     const [selectedSubscription, setSelectedSubscription] = useState('');
     const [price, setPrice] = useState(0);
-    const [id, setSubscriptionId] = useState(0);
+    const [subscriptionTypeId, setSubscriptionTypeId] = useState(0);
     const [showDurationList, setShowDurationList] = useState(false);
     const [selectedDuration, setSelectedDuration] = useState('');
     const subscriptionTypes = useFetch('subscriptiontype/types');
@@ -38,7 +38,7 @@ const AddAbonnement = ({ navigation }) => {
             }
             const data = await response.json();
             setPrice(data.pricePerMonth);
-            setSubscriptionId(data.id);
+            setSubscriptionTypeId(data.id);
         } catch (error) {
             console.error('Error fetching data:', error.message);
         }
@@ -58,7 +58,7 @@ const AddAbonnement = ({ navigation }) => {
             const confirmed = window.confirm('Are you sure you want to buy?');
             if (confirmed) {
                 resetValues();
-                navigation.navigate('abonnementHistory');
+                postAbonnement();
             }
         } else {
             Alert.alert(
@@ -71,13 +71,39 @@ const AddAbonnement = ({ navigation }) => {
                         text: 'OK',
                         onPress: () => {
                             resetValues();
-                            navigation.navigate('abonnementHistory');
-
+                            postAbonnement();
                         },
                     },
                 ]
             );
         }
+    }
+
+    const postAbonnement = async () => {
+        const abonnement = {
+            userId,
+            subscriptionTypeId
+        }
+
+        try {
+            const response = await fetch(`${BASE_URL}subscription/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(abonnement),
+            });
+            if (response.status !== 201) {
+                throw new Error('Abonnement could not be added in the server' + response.statusText);
+            }
+
+            console.log('Response:', response);
+
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+
+
     }
 
     const resetValues = () => {

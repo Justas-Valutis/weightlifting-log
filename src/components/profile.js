@@ -1,14 +1,44 @@
-import { StyleSheet, Text, Alert, View, Pressable, TextInput, Dimensions, Platform} from 'react-native'
-import React, { useContext, useState } from 'react'
+import { StyleSheet, Text, Alert, View, Pressable, TextInput, Dimensions, Platform } from 'react-native'
+import React, { useContext, useState, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext';
 import { ThemeContext } from '../context/ThemeContext';
 import ThemeView from './shared/themeView';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
 import TitleText from './shared/TitleText';
 import LineText from './shared/LineText';
+import { BASE_URL } from '../config/apiConfig';
 
 const Profile = () => {
     const { logout } = useContext(AuthContext);
+    const { userId } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (userId) {
+            fetchUserData();
+        }
+    }, [userId]);
+
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch(BASE_URL + `user/id=${userId}`);
+            if (response.status === 200) {
+                console.log('Response:', response);
+                const result = await response.json();
+                console.log('Result:', result);
+                setUsername(result.userName);
+                setEmail(result.email);
+                return;
+            }
+
+            if (response.status === 404) {
+                throw new Error('User not found');
+            }
+
+        } catch (err) {
+            console.error('Error fetching data:', err.message);
+        }
+    };
+
     const { setThemeLight, setThemeDark } = useContext(ThemeContext);
 
     const [username, setUsername] = useState('username');
