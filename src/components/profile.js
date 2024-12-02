@@ -71,8 +71,8 @@ const Profile = () => {
             });
 
             if (response.status === 200) {
-                console.log('Username updated');
                 setValidUsername(true);
+                alertMessage('Username updated successfully');
             }
 
             if (response.status === 400) {
@@ -108,8 +108,8 @@ const Profile = () => {
             });
 
             if (response.status === 200) {
-                console.log('Username updated');
                 setValidEmail(true);
+                alertMessage('Email updated');
             }
 
             if (response.status === 400) {
@@ -120,17 +120,44 @@ const Profile = () => {
                 throw new Error('User not found');
             }
         } catch (err) {
-            console.error('Error updating username:', err.message);
+            console.error('Error updating user email:', err.message);
         }
     }
 
     const updatePassword = () => {
         if (isNewPasswordValid()) {
             setValidPassword(true)
-            //check if old password is correct
-            //update password
+            changePassword();
         } else {
             setValidPassword(false);
+        }
+    }
+    const changePassword = async () => {
+        const request = { oldPassword, newPassword };
+        try {
+            const response = await fetch(BASE_URL + `user/patch-password/id=${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(request),
+            });
+
+            if (response.status === 200) {
+                console.log('Password updated');
+                setValidPassword(true);
+                alertMessage('Password updated');
+            }
+
+            if (response.status === 400) {
+                setValidPassword(false);
+            }
+
+            if (response.status === 404) {
+                throw new Error('User not found');
+            }
+        } catch (err) {
+            console.error('Error updating password:', err.message);
         }
     }
 
@@ -159,6 +186,14 @@ const Profile = () => {
             );
         }
     };
+
+    const alertMessage = (message) => {
+        if (Platform.OS === 'web') {
+            window.alert(message);
+        } else {
+            Alert.alert(message);
+        }
+    }
 
     return (
         <ThemeView>
@@ -215,26 +250,35 @@ const Profile = () => {
 
                 <View style={styles.profileRow}>
                     <LineText>Old Password</LineText>
-                    <TextInput placeholder='old password' style={tabsCommonstyles.textInput} onChangeText={text => setOldPassword(text)} autoCapitalize="none" />
+                    <TextInput placeholder='old password' style={tabsCommonstyles.textInput} onChangeText={text => setOldPassword(text)} 
+                    autoCapitalize="none" secureTextEntry={true}/>
                 </View>
 
                 <View style={styles.profileRow}>
                     <LineText>New Password</LineText>
-                    <TextInput placeholder='new password' style={tabsCommonstyles.textInput} onChangeText={text => setNewPassword(text)} autoCapitalize="none" />
+                    <TextInput placeholder='new password' style={tabsCommonstyles.textInput} onChangeText={text => setNewPassword(text)} 
+                    autoCapitalize="none" secureTextEntry={true}/>
                 </View>
 
                 <View style={styles.profileRow}>
                     <LineText>New Password</LineText>
-                    <TextInput placeholder='repeat password' style={tabsCommonstyles.textInput} onChangeText={text => setConfirmNewPassword(text)} autoCapitalize="none" />
+                    <TextInput placeholder='repeat password' style={tabsCommonstyles.textInput} onChangeText={text => setConfirmNewPassword(text)} 
+                    autoCapitalize="none" secureTextEntry={true}/>
                 </View>
 
                 <Pressable style={[styles.darkThemeBTN, styles.backgroundGray, styles.btnChangePsw]} onPress={updatePassword}>
                     <Text style={[tabsCommonstyles.text, tabsCommonstyles.textCenter, styles.whiteText]}>Change password</Text>
                 </Pressable>
                 {!validPassword && (
-                    <Text style={styles.error}>
-                        Passwords must be at least 5 characters long and match
-                    </Text>
+                    <View>
+                        <Text style={styles.error}>
+                            Passwords must be at least 5 characters long and match.
+                        </Text>
+                        <Text style={styles.error}>
+                            Or old password is incorrect.
+                        </Text>
+                    </View>
+
                 )}
             </View>
 
