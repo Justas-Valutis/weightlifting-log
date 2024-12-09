@@ -3,13 +3,15 @@ import React, { createContext, useState } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(1);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const login = (userId) => {
+  const login = (user) => {
     setIsLoggedIn(true);
-    setUserId(userId);
-    console.log(userId);
+    setUserId(user.userId);
+    setIsAdmin(user.isAdmin);
+    console.log(user);
   };
 
   const logout = () => {

@@ -40,7 +40,7 @@ const Login = ({ navigation }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.text();
+      const data = await response.json();
       console.log('Success:', data);
       login(data);
 
