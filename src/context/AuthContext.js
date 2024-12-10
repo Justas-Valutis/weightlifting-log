@@ -3,9 +3,9 @@ import React, { createContext, useState } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(1);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [userId, setUserId] = useState(4);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   const login = (user) => {
     setIsLoggedIn(true);
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, userId }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, userId, isAdmin }}>
       {children}
     </AuthContext.Provider>
   );

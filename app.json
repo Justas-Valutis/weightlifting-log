@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "weightlifting-log",
-    "slug": "weightlifting-log",
+    "name": "training-subscription",
+    "slug": "training-subscription",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

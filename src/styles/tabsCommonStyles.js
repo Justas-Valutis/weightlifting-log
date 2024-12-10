@@ -36,6 +36,12 @@ const tabsCommonstyles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '300',
     },
+    container: {
+        flexGrow: 1,
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+    },
 })
 
 export default tabsCommonstyles

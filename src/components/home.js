@@ -1,8 +1,5 @@
 import { StyleSheet, Platform, Image, Dimensions, ScrollView, View } from 'react-native'
 import React from 'react'
-import { useState, useContext } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ThemeContext } from '../context/ThemeContext';
 import ThemeView from './shared/themeView';
 import LineText from './shared/LineText';
 import TitleText from './shared/LineText';
@@ -12,9 +9,6 @@ const { width } = Dimensions.get('window');
 
 
 const Home = () => {
-    const [query, setQuery] = useState('');
-    const Tab = createBottomTabNavigator();
-    const { theme } = useContext(ThemeContext);
     const { height, width } = Dimensions.get('window');
 
     return (

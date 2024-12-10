@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import { StyleSheet, View, FlatList, Dimensions } from 'react-native';
+import React, { useContext, useState, useCallback } from 'react';
 import ThemeView from './shared/themeView';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
 import LineText from './shared/LineText';
