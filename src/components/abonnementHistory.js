@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, View, FlatList, Dimensions, Pressable } from 'react-native';
 import React, { useContext, useState, useCallback } from 'react';
 import ThemeView from './shared/themeView';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
@@ -39,36 +39,57 @@ const AbonnementHistory = () => {
         }
     };
 
+    const deleteSubscription = (id) => async () => {
+        try {
+            const response = await fetch(`${BASE_URL}subscription/delete/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            fetchData();
+        } catch (err) {
+            console.error('Error fetching data:', err.message);
+        }
+    }
+
     return (
         <ThemeView>
             <LineText style={tabsCommonstyles.heading}>Abonnement History</LineText>
             <View style={styles.container}>
                 {
                     !abonnementen || abonnementen.length === 0 ?
-                        <LineText style={tabsCommonstyles.subHeading}>No subscriptions found</LineText> : null
-                }
-                <FlatList
-                    data={abonnementen}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <View style={styles.abonnement}>
+                        <LineText style={tabsCommonstyles.subHeading}>No subscriptions found</LineText> :
 
-                            <LineText style={styles.abonnementType}>{item.subscriptionTitle}</LineText>
-                            <View style={styles.abonnementDetails}>
-                                <View style={styles.column}>
-                                    <LineText style={styles.abonnementText}>{item.datePurchased}</LineText>
-                                    <LineText style={styles.abonnementText}>{item.dateExpires}</LineText>
+                        <FlatList
+                            data={abonnementen}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <View style={styles.abonnement}>
+
+                                    <LineText style={styles.abonnementType}>{item.subscriptionTitle}</LineText>
+                                    <View style={styles.abonnementDetails}>
+                                        <View style={styles.column}>
+                                            <LineText style={styles.abonnementText}>{item.datePurchased}</LineText>
+                                            <LineText style={styles.abonnementText}>{item.dateExpires}</LineText>
+                                        </View>
+                                        <View style={[styles.column, styles.amountPaid]}>
+                                            <LineText style={styles.abonnementText}>{item.amountPaid} €</LineText>
+                                        </View>
+                                        <View style={styles.abonnementStatus}>
+                                            <LineText style={[styles.abonnementText, item.subscriptionStatus !== 'ACTIVE' ? styles.pending : null]}>{item.subscriptionStatus}</LineText>
+                                        </View>
+                                    </View>
+
+                                    {(item.subscriptionStatus === 'PENDING') ?
+                                        <Pressable style={styles.btnDelete} onPress={deleteSubscription(item.id)}>
+                                            <LineText style={[styles.abonnementText, styles.txtWhite]}>Delete</LineText>
+                                        </Pressable> : null
+                                    }
                                 </View>
-                                <View style={[styles.column, styles.amountPaid]}>
-                                    <LineText style={styles.abonnementText}>{item.amountPaid} €</LineText>
-                                </View>
-                                <View style={styles.abonnementStatus}>
-                                    <LineText style={[styles.abonnementText, item.subscriptionStatus !== 'ACTIVE' ? styles.pending : null]}>{item.subscriptionStatus}</LineText>
-                                </View>
-                            </View>
-                        </View>
-                    )}
-                />
+                            )}
+                        />
+                }
             </View>
         </ThemeView>
     );
@@ -120,5 +141,14 @@ const styles = StyleSheet.create({
     },
     pending: {
         color: 'red',
+    },
+    btnDelete: {
+        backgroundColor: 'lightcoral',
+        padding: 10,
+        borderRadius: 5,
+        alignSelf: 'center',
+    },
+    txtWhite: {
+        color: 'white',
     },
 });

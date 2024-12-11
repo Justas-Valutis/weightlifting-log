@@ -8,6 +8,7 @@ import TitleText from './shared/TitleText';
 import LineText from './shared/LineText';
 import { BASE_URL } from '../config/apiConfig';
 
+
 const Profile = () => {
     const { logout } = useContext(AuthContext);
     const { userId } = useContext(AuthContext);
@@ -250,20 +251,20 @@ const Profile = () => {
 
                 <View style={styles.profileRow}>
                     <LineText>Old Password</LineText>
-                    <TextInput placeholder='old password' style={tabsCommonstyles.textInput} onChangeText={text => setOldPassword(text)} 
-                    autoCapitalize="none" secureTextEntry={true}/>
+                    <TextInput placeholder='old password' style={tabsCommonstyles.textInput} onChangeText={text => setOldPassword(text)}
+                        autoCapitalize="none" secureTextEntry={true} />
                 </View>
 
                 <View style={styles.profileRow}>
                     <LineText>New Password</LineText>
-                    <TextInput placeholder='new password' style={tabsCommonstyles.textInput} onChangeText={text => setNewPassword(text)} 
-                    autoCapitalize="none" secureTextEntry={true}/>
+                    <TextInput placeholder='new password' style={tabsCommonstyles.textInput} onChangeText={text => setNewPassword(text)}
+                        autoCapitalize="none" secureTextEntry={true} />
                 </View>
 
                 <View style={styles.profileRow}>
                     <LineText>New Password</LineText>
-                    <TextInput placeholder='repeat password' style={tabsCommonstyles.textInput} onChangeText={text => setConfirmNewPassword(text)} 
-                    autoCapitalize="none" secureTextEntry={true}/>
+                    <TextInput placeholder='repeat password' style={tabsCommonstyles.textInput} onChangeText={text => setConfirmNewPassword(text)}
+                        autoCapitalize="none" secureTextEntry={true} />
                 </View>
 
                 <Pressable style={[styles.darkThemeBTN, styles.backgroundGray, styles.btnChangePsw]} onPress={updatePassword}>

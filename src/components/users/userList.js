@@ -1,44 +1,23 @@
-import { StyleSheet, Dimensions, View, FlatList, TextInput } from 'react-native'
-import { React, useState } from 'react'
-import { useFetch } from '../shared/useFetch';
+import { StyleSheet, Dimensions, View, FlatList, Pressable } from 'react-native'
+import { React } from 'react'
 import LineText from '../shared/LineText';
 import tabsCommonstyles from '../../styles/tabsCommonStyles';
 
-const UserList = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const data = useFetch('user');
-
-    if (!data) {
-        return <LineText>Loading...</LineText>;
-    }
-
-    const users = Array.isArray(data.content) ? data.content : [];
-
-    const filteredUsers = users.filter(user =>
-        user.userName.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
+const UserList = ({ data, viewUserSubscriptions }) => {
     return (
         <View style={tabsCommonstyles.container}>
-            <TextInput
-                style={tabsCommonstyles.textInput}
-                placeholder="Search by username"
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-            />
-
-            {filteredUsers.length === 0 ? (
+            {data.length === 0 ? (
                 <LineText>No users found</LineText>
             ) : (
                 <FlatList
                     style={styles.userContainer}
-                    data={filteredUsers}
+                    data={data}
                     keyExtractor={(item) => item.userName}
                     renderItem={({ item }) => (
-                        <View style={styles.user}>
+                        <Pressable style={styles.user} onPress={viewUserSubscriptions}>
                             <LineText>{item.userName}</LineText>
                             <LineText>{item.email}</LineText>
-                        </View>
+                        </Pressable>
                     )}
                 />
             )}
@@ -62,11 +41,13 @@ const styles = StyleSheet.create({
         margin: 0,
         flex: 1,
         justifyContent: 'space-between',
+        paddingVertical: 15,
     },
     userText: {
         fontSize: 18,
     },
     userContainer: {
-        width: width > 700 ? '50%' : "100%"
+        width: width > 700 ? '50%' : "100%",
+        paddingTop: 10,
     }
 })

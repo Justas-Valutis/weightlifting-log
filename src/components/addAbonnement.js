@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Dimensions, Alert, Platform } from 'react-native';
+import { StyleSheet, Text, View, Pressable, FlatList, Dimensions, Alert, Platform } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import LineText from './shared/LineText';
 import tabsCommonstyles from '../styles/tabsCommonStyles';
@@ -6,6 +6,7 @@ import ThemeView from './shared/themeView';
 import { useFetch } from './shared/useFetch';
 import { BASE_URL } from '../config/apiConfig';
 import { AuthContext } from '../context/AuthContext';
+import DropdownSelector from './shared/DropDownSelector';
 
 const AddAbonnement = () => {
 
@@ -115,51 +116,67 @@ const AddAbonnement = () => {
 
     return (
         <ThemeView>
-            <LineText style={tabsCommonstyles.heading}>Add Abonnement</LineText>
+            <LineText style={tabsCommonstyles.heading}>Add Subscription</LineText>
 
             <View style={styles.container}>
                 <LineText style={tabsCommonstyles.subHeading}>Select Abonnement type</LineText>
 
-                <TouchableOpacity onPress={() => setShowSubscriptionList(!showSubscriptionList)} style={[styles.list, styles.button, selectedSubscription ? styles.selectedSubscription : null]}>
+                <Pressable onPress={() => setShowSubscriptionList(!showSubscriptionList)} style={[styles.list, styles.button, selectedSubscription ? styles.selectedSubscription : null]}>
                     <Text style={styles.buttonText}>{selectedSubscription ? selectedSubscription : 'Select Abonnement'}</Text>
-                </TouchableOpacity>
+                </Pressable>
                 {showSubscriptionList && (
                     <FlatList
                         style={[styles.list, styles.dropdown]}
                         data={subscriptionTypes}
                         keyExtractor={(item) => item}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleSubscriptionPress(item)} style={styles.item}>
+                            <Pressable onPress={() => handleSubscriptionPress(item)} style={styles.item}>
                                 <Text style={styles.itemText}>{item}</Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         )}
                     />
                 )}
 
+
                 <LineText style={tabsCommonstyles.subHeading}>Select Abonnement duration</LineText>
 
-                <TouchableOpacity onPress={() => setShowDurationList(!showDurationList)} style={[styles.list, styles.button]}>
+                <Pressable onPress={() => setShowDurationList(!showDurationList)} style={[styles.list, styles.button]}>
                     <Text style={styles.buttonText}>{selectedDuration ? selectedDuration : 'Select Duration'}</Text>
-                </TouchableOpacity>
+                </Pressable>
                 {showDurationList && (
                     <FlatList
                         style={[styles.list, styles.dropdown]}
                         data={durations}
                         keyExtractor={(item) => item}
                         renderItem={({ item }) => (
-                            <TouchableOpacity onPress={() => handleDurationPress(item)} style={styles.item}>
+                            <Pressable onPress={() => handleDurationPress(item)} style={styles.item}>
                                 <Text style={styles.itemText}>{item}</Text>
-                            </TouchableOpacity>
+                            </Pressable>
                         )}
                     />
                 )}
 
+                {/* <DropdownSelector
+                    header="Select Subscription Type"
+                    dropdownBtnText="Select Subscription"
+                    selected={selectedSubscription}
+                    data={subscriptionTypes}
+                    setSelected={setSelectedSubscription}
+                />
+                <DropdownSelector
+                    header="Select Subscription Duration"
+                    dropdownBtnText="Select Duration"
+                    selected={selectedDuration}
+                    data={durations}
+                    setSelected={setSelectedDuration}
+                /> */}
+
                 {price > 0 && (
                     <View>
                         <LineText style={tabsCommonstyles.subHeading}>Price: {price} €</LineText>
-                        <TouchableOpacity onPress={handleBuyBtn} style={[styles.button, styles.buyBTN]}>
+                        <Pressable onPress={handleBuyBtn} style={[styles.button, styles.buyBTN]}>
                             <Text style={styles.buttonText}>Buy Abonnement</Text>
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 )}
             </View>
