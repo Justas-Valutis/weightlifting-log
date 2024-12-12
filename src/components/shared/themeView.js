@@ -6,6 +6,8 @@ import { useContext } from 'react'
 export default function ThemeView({ children }) {
     const { theme, isDark } = useContext(ThemeContext);
 
+
+
     return (
         <View style={{ backgroundColor: theme, flex: 1 }}>
             <SafeAreaView style={styles.container}>

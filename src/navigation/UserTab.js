@@ -2,11 +2,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Home from '../components/home';
 import Profile from '../components/profile';
-import AddAbonnement from '../components/addAbonnement';
-import AbonnementHistory from '../components/abonnementHistory';
+import SubscriptiontHistory from '../components/subscriptionHistory';
+import AddSubscription from '../components/addSubscription';
+import { AuthContext } from '../context/AuthContext';
+import { useContext } from 'react';
 
 const UserTab = () => {
   const Tab = createBottomTabNavigator();
+  const { userId } = useContext(AuthContext);
 
   return (
     <Tab.Navigator screenOptions={{
@@ -29,7 +32,8 @@ const UserTab = () => {
         }}
       />
 
-      <Tab.Screen name="abonnementHistory" component={AbonnementHistory}
+      <Tab.Screen name="SubscriptiontHistory" component={SubscriptiontHistory}
+        initialParams={{ userId }}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons name="cart" color={focused ? '#B0B0B0' : 'gray'} size={24} />
@@ -37,7 +41,7 @@ const UserTab = () => {
         }}
       />
 
-      <Tab.Screen name="AddAbonnement" component={AddAbonnement}
+      <Tab.Screen name="AddSubscription" component={AddSubscription}
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons name="add-circle-sharp" color={focused ? '#B0B0B0' : 'gray'}

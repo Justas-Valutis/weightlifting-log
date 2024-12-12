@@ -4,6 +4,7 @@ import LineText from '../shared/LineText';
 import tabsCommonstyles from '../../styles/tabsCommonStyles';
 
 const UserList = ({ data, viewUserSubscriptions }) => {
+
     return (
         <View style={tabsCommonstyles.container}>
             {data.length === 0 ? (
@@ -12,9 +13,9 @@ const UserList = ({ data, viewUserSubscriptions }) => {
                 <FlatList
                     style={styles.userContainer}
                     data={data}
-                    keyExtractor={(item) => item.userName}
+                    keyExtractor={(item) => item.userId}
                     renderItem={({ item }) => (
-                        <Pressable style={styles.user} onPress={viewUserSubscriptions}>
+                        <Pressable style={styles.user} onPress={() => viewUserSubscriptions(item.userName, item.userId)}>
                             <LineText>{item.userName}</LineText>
                             <LineText>{item.email}</LineText>
                         </Pressable>

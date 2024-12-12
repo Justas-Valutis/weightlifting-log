@@ -8,7 +8,7 @@ import { useFetch } from '../shared/useFetch';
 import LineText from '../shared/LineText';
 
 
-const Users = () => {
+const Users = ({ navigation }) => {
     const data = useFetch('user');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -22,8 +22,9 @@ const Users = () => {
         user.userName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const viewUserSubscriptions = () => {
+    const viewUserSubscriptions = (userName, userId) => {
         console.log('View user subscriptions');
+        navigation.navigate('UserSubscription', { userName, userId });
     }
 
 

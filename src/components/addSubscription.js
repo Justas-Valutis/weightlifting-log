@@ -8,7 +8,7 @@ import { BASE_URL } from '../config/apiConfig';
 import { AuthContext } from '../context/AuthContext';
 import DropdownSelector from './shared/DropDownSelector';
 
-const AddAbonnement = () => {
+const AddSubscription = () => {
 
     const { userId } = useContext(AuthContext);
 
@@ -119,10 +119,10 @@ const AddAbonnement = () => {
             <LineText style={tabsCommonstyles.heading}>Add Subscription</LineText>
 
             <View style={styles.container}>
-                <LineText style={tabsCommonstyles.subHeading}>Select Abonnement type</LineText>
+                <LineText style={tabsCommonstyles.subHeading}>Select Subscription type</LineText>
 
                 <Pressable onPress={() => setShowSubscriptionList(!showSubscriptionList)} style={[styles.list, styles.button, selectedSubscription ? styles.selectedSubscription : null]}>
-                    <Text style={styles.buttonText}>{selectedSubscription ? selectedSubscription : 'Select Abonnement'}</Text>
+                    <Text style={styles.buttonText}>{selectedSubscription ? selectedSubscription : 'Select Subscription'}</Text>
                 </Pressable>
                 {showSubscriptionList && (
                     <FlatList
@@ -138,7 +138,7 @@ const AddAbonnement = () => {
                 )}
 
 
-                <LineText style={tabsCommonstyles.subHeading}>Select Abonnement duration</LineText>
+                <LineText style={tabsCommonstyles.subHeading}>Select Subscription duration</LineText>
 
                 <Pressable onPress={() => setShowDurationList(!showDurationList)} style={[styles.list, styles.button]}>
                     <Text style={styles.buttonText}>{selectedDuration ? selectedDuration : 'Select Duration'}</Text>
@@ -155,6 +155,8 @@ const AddAbonnement = () => {
                         )}
                     />
                 )}
+
+                {/* //PROBLEEM WITH OVERLAYING OTHER ELEMNTS ONCE DROPDOWN IS OPEN */}
 
                 {/* <DropdownSelector
                     header="Select Subscription Type"
@@ -173,7 +175,7 @@ const AddAbonnement = () => {
 
                 {price > 0 && (
                     <View>
-                        <LineText style={tabsCommonstyles.subHeading}>Price: {price} €</LineText>
+                        <LineText style={tabsCommonstyles.subHeading}>Monthly price: {price} €</LineText>
                         <Pressable onPress={handleBuyBtn} style={[styles.button, styles.buyBTN]}>
                             <Text style={styles.buttonText}>Buy Abonnement</Text>
                         </Pressable>
@@ -185,7 +187,7 @@ const AddAbonnement = () => {
     );
 };
 
-export default AddAbonnement;
+export default AddSubscription;
 
 const { width } = Dimensions.get('window');
 

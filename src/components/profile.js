@@ -10,8 +10,7 @@ import { BASE_URL } from '../config/apiConfig';
 
 
 const Profile = () => {
-    const { logout } = useContext(AuthContext);
-    const { userId } = useContext(AuthContext);
+    const { userId, logout } = useContext(AuthContext);
 
     useEffect(() => {
         if (userId) {

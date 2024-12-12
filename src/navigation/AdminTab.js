@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Home from '../components/home';
 import Profile from '../components/profile';
-import Users from '../components/users/users';
+import AdminNestedUser from './AdminNestedUser';
 import Subscriptions from '../components/subscriptions';
 
 const AdminTab = () => {
@@ -37,7 +37,7 @@ const AdminTab = () => {
                 }}
             />
 
-            <Tab.Screen name="users" component={Users}
+            <Tab.Screen name="users" component={AdminNestedUser}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Ionicons name="people-outline" color={focused ? '#B0B0B0' : 'gray'} size={24} />
