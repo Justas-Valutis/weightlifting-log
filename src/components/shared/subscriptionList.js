@@ -44,16 +44,20 @@ const SubscriptionList = ({ data, fetchData }) => {
                     renderItem={({ item }) => (
                         <View style={styles.abonnement}>
 
-                            <Text style={styles.abonnementTypeTxt}>{item.subscriptionTitle}</Text>
+                            <Text style={styles.abonnementTypeTxt}>Subscription - {item.subscriptionTitle}</Text>
+                            <Text style={styles.abonnementTypeTxt}>User - {item.username}</Text>
                             <View style={styles.abonnementDetails}>
                                 <View style={styles.column}>
+                                    <Text style={styles.abonnementText}>Time period</Text>
                                     <Text style={styles.abonnementText}>{item.datePurchased}</Text>
                                     <Text style={styles.abonnementText}>{item.dateExpires}</Text>
                                 </View>
                                 <View style={[styles.column, styles.amountPaid]}>
+                                    <Text style={styles.abonnementText}>Total</Text>
                                     <Text style={styles.abonnementText}>{item.amountPaid} €</Text>
                                 </View>
                                 <View style={styles.abonnementStatus}>
+                                    <Text style={styles.abonnementText}>Status</Text>
                                     <Text style={[styles.abonnementText, item.subscriptionStatus === 'ACTIVE' ? styles.activeTxt : styles.pendingOrExpired]}>{item.subscriptionStatus}</Text>
                                 </View>
                             </View>

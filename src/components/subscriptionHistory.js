@@ -47,7 +47,6 @@ const SubscriptiontHistory = ({ route }) => {
         </ThemeView>
     );
 };
-
 export default SubscriptiontHistory;
 
 const styles = StyleSheet.create({

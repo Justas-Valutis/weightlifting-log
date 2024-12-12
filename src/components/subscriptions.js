@@ -54,7 +54,7 @@ const Subscriptions = () => {
                     </Pressable>
                 </View>
 
-                {!subscriptions || subscriptions.length === 0 ? <TitleText style={tabsCommonstyles.subHeading}>Selected {status}</TitleText> : null}
+                <TitleText style={tabsCommonstyles.subHeading}>Selected {status}</TitleText>
 
                 <SubscriptionList data={subscriptions} fetchData={fetchData} />
             </View>
