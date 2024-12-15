@@ -14,6 +14,16 @@ account yet, user must register first.
 
 Once logged the application wil give you access based on your role (user or admin).
 
+## Users credentials for testing
+#### Admin
+- username: admin, password: admin
+#### Users
+- username: justas, password: justas
+- username: demo, password: demo
+- or create your own user
+
+## Screens and acessibility
+
 #### User has access:
 - Profile screen
     - User change theme (light or dark)

@@ -10,7 +10,7 @@ import SubscriptionList from './shared/subscriptionList';
 
 
 const SubscriptiontHistory = ({ route }) => {
-    const { userId } = route.params;
+    const { userId, userName } = route.params;
     const [abonnementen, setAbonnementen] = useState();
 
     useFocusEffect(
@@ -42,7 +42,7 @@ const SubscriptiontHistory = ({ route }) => {
         <ThemeView>
             <LineText style={tabsCommonstyles.heading}>Subscription History</LineText>
             <View style={styles.container}>
-                <SubscriptionList data={abonnementen} fetchData={fetchData} />
+                <SubscriptionList data={abonnementen} fetchData={fetchData} userName={userName} />
             </View>
         </ThemeView>
     );

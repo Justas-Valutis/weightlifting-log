@@ -4,7 +4,7 @@ import { BASE_URL } from '../../config/apiConfig'
 import { AuthContext } from '../../context/AuthContext'
 import TitleText from './LineText'
 
-const SubscriptionList = ({ data, fetchData }) => {
+const SubscriptionList = ({ data, fetchData, userName }) => {
     const { isAdmin } = useContext(AuthContext);
 
     const deleteSubscription = (id) => async () => {
@@ -45,7 +45,7 @@ const SubscriptionList = ({ data, fetchData }) => {
                         <View style={styles.abonnement}>
 
                             <Text style={styles.abonnementTypeTxt}>Subscription - {item.subscriptionTitle}</Text>
-                            <Text style={styles.abonnementTypeTxt}>User - {item.username}</Text>
+                            {isAdmin && <Text style={styles.abonnementTypeTxt}>User - {item.username} {userName}</Text>}
                             <View style={styles.abonnementDetails}>
                                 <View style={styles.column}>
                                     <Text style={styles.abonnementText}>Time period</Text>
