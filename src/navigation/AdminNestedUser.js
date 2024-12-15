@@ -25,6 +25,7 @@ const AdminNestedUser = () => {
                         fontWeight: 'bold',
                         color: isDark ? 'white' : 'black',
                     },
+                    headerTintColor: isDark ? 'white' : 'black', // Sets the back arrow color
                 })}
             />
         </Stack.Navigator>

@@ -6,11 +6,10 @@ import tabsCommonstyles from '../styles/tabsCommonStyles'
 import SubscriptionList from './shared/subscriptionList'
 import { useFocusEffect } from '@react-navigation/native';
 import { BASE_URL } from '../config/apiConfig';
-import { useFetch } from './shared/useFetch'
-
+import SubscrbtionStatusBTN from './shared/subscribtionsStatusBTN'
 
 const Subscriptions = () => {
-    const [status, setStatus] = useState('pending');
+    const [status, setStatus] = useState('Pending');
     const [subscriptions, setSubscriptions] = useState();
 
     useFocusEffect(
@@ -43,18 +42,10 @@ const Subscriptions = () => {
                 <TitleText style={tabsCommonstyles.heading}>Pending Subscriptions</TitleText>
 
                 <View style={styles.btnContainer}>
-                    <Pressable style={styles.btn} onPress={() => setStatus('pending')}>
-                        <Text style={styles.btnText} >Pending</Text>
-                    </Pressable>
-                    <Pressable style={styles.btn} onPress={() => setStatus('active')}>
-                        <Text style={styles.btnText}>Active</Text>
-                    </Pressable>
-                    <Pressable style={styles.btn} onPress={() => setStatus('expired')}>
-                        <Text style={styles.btnText}>Expired</Text>
-                    </Pressable>
+                    <SubscrbtionStatusBTN setStatus={setStatus} status={status} title='Pending' />
+                    <SubscrbtionStatusBTN setStatus={setStatus} status={status} title='Active' />
+                    <SubscrbtionStatusBTN setStatus={setStatus} status={status} title='Expired' />
                 </View>
-
-                <TitleText style={tabsCommonstyles.subHeading}>Selected {status}</TitleText>
 
                 <SubscriptionList data={subscriptions} fetchData={fetchData} />
             </View>
@@ -73,7 +64,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     btn: {
-        backgroundColor: 'lightblue',
         padding: 10,
         borderRadius: 5,
         margin: 5,
