@@ -84,7 +84,7 @@ Once logged the application wil give you access based on your role (user or admi
 
 - Asked about Tab.Navigator en Tab.Screen styling options (focused, background color, header shown and...)
 - Asked to generate email regex "const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
-- Asked about refreshing the mounted data while navigatint through tabs. - Given solution:
+- Asked about refreshing the mounted data while navigating through tabs. - Given solution:
   useFocusEffect(
   useCallback(() => {
   if (userId) {

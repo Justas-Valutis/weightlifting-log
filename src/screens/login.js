@@ -54,6 +54,7 @@ const Login = ({ navigation }) => {
   return (
     <View style={authCommonStyles.container}>
       <Title title="Login" />
+
       <TextInput style={authCommonStyles.textInput} placeholder="Username" onChangeText={text => setUsername(text)} autoCapitalize="none"></TextInput>
       <FontAwesome name='user' size='20' style={authCommonStyles.txtInputIcon} />
 

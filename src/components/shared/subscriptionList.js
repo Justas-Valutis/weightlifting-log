@@ -3,7 +3,7 @@ import { React, useContext } from 'react'
 import { BASE_URL } from '../../config/apiConfig'
 import { AuthContext } from '../../context/AuthContext'
 import TitleText from './LineText'
-
+    
 const SubscriptionList = ({ data, fetchData, userName }) => {
     const { isAdmin } = useContext(AuthContext);
 
